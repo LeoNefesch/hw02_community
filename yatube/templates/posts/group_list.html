@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head> 
+    {% include 'includes/head.html' %}
+    <title>{{ title }}{{ group }}</title>
+  </head>
+  {% block content %}
+      <div class="container py-5">
+        <h1>{{ group.title }}</h1>
+        <article>
+          {% for post in posts %}
+            <ul>
+              <li>
+                Автор: {{ post.author.get_full_name }}
+              </li>
+              <li>
+                Дата публикации: {{ post.pub_date|date:"d E Y" }}
+              </li>
+            </ul>
+            <p>{{ post.text }}</p>
+            {% if post.group %}
+              <a href="{% url 'posts:group_list' group.slug %}">все записи группы</a>
+            {% endif %}   
+          {% if not forloop.last %}<hr>{% endif %}
+          {% endfor %}
+        </article>
+      </div>  
+  {% endblock content %}
+    </main>
+    <footer class="page-footer font-small blue border-top">
+      <div class="footer-copyright text-center py-3">© 2020 Copyright 
+        <p><span style="color:red">Ya</span>tube</p> 
+      </div>    
+    </footer>
+  </body>
+</html>
