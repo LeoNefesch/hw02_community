@@ -14,10 +14,12 @@ class Group(models.Model):
 
 
 class Post(models.Model):
-    group = models.ForeignKey(
-        Group, blank=True, null=True,
-        on_delete=models.CASCADE, related_name='group')
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name='posts')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.PROTECT,
+                              blank=True, null=True)
+
+    class Meta:
+        default_related_name = '%(app_label)s_%(model_name)s'
+        ordering = ['-pub_date']
