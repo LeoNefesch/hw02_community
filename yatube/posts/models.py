@@ -17,9 +17,9 @@ class Post(models.Model):
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    group = models.ForeignKey(Group, on_delete=models.PROTECT,
+    group = models.ForeignKey(Group, on_delete=models.SET_NULL,
                               blank=True, null=True)
 
     class Meta:
-        default_related_name = '%(app_label)s_%(model_name)s'
+        default_related_name = 'posts'
         ordering = ['-pub_date']
